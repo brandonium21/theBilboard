@@ -39,7 +39,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Brandonium21/Documents/projects/uberbilboard/uberbilboardEnv"
+VIRTUAL_ENV="/Users/Brandonium21/Documents/projects/TheBilboard/thebilboardEnv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
