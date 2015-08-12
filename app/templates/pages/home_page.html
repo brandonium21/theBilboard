@@ -1,0 +1,16 @@
+{% extends "common/page_base.html" %}  {# common/page_base.html extends layout.html #}
+
+{% block main %}
+<h1>Home page</h1>
+
+<p>This page is accessible to any user (signed in or not)</p>
+
+{% if not current_user.is_authenticated() %}
+<p>
+To view the User page, you must
+<a href="{{ url_for('user.login') }}">Sign in</a> or
+<a href="{{ url_for('user.register') }}">Register</a>.
+</p>
+{% endif %}
+
+{% endblock %}
