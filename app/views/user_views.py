@@ -52,7 +52,7 @@ def driverAuth():
 
     parameters = {
         'response_type': 'code',
-        'redirect_uri': 'http://127.0.0.1:5000/uberDriverAuth2',
+        'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2',
         'scope': 'profile',
     }
 
@@ -64,7 +64,7 @@ def driverAuth():
 @app.route('/uberDriverAuth2', methods=['GET', 'POST'])
 @login_required
 def driverAuth2():
-    parameters = {'redirect_uri': 'http://127.0.0.1:5000/uberDriverAuth2', 'code': request.args.get('code'), 'grant_type': 'authorization_code', }
+    parameters = {'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2', 'code': request.args.get('code'), 'grant_type': 'authorization_code', }
 
     response = requests.post(
         'https://login.uber.com/oauth/token',
