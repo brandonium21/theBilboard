@@ -53,7 +53,7 @@ def driverAuth():
     parameters = {
         'response_type': 'code',
         'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2',
-        'scope': 'profile', 'request'
+        'scope': 'profile request'
     }
 
     # Redirect user here to authorize your application
@@ -78,7 +78,3 @@ def driverAuth2():
     # This access_token is what we'll use to make requests in the following
     # steps
     access_token = response.json().get('access_token')
-    
-
-
-
