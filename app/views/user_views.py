@@ -64,7 +64,11 @@ def driverAuth():
 @app.route('/uberDriverAuth2', methods=['GET', 'POST'])
 @login_required
 def driverAuth2():
-    parameters = {'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2', 'code': request.args.get('code'), 'grant_type': 'authorization_code', }
+    parameters = {
+        'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2',
+        'code': request.args.get('code'),
+        'grant_type': 'authorization_code',
+    }
 
     response = requests.post(
         'https://login.uber.com/oauth/token',
@@ -78,3 +82,4 @@ def driverAuth2():
     # This access_token is what we'll use to make requests in the following
     # steps
     access_token = response.json().get('access_token')
+
