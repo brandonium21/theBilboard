@@ -82,4 +82,6 @@ def driverAuth2():
     # This access_token is what we'll use to make requests in the following
     # steps
     access_token = response.json().get('access_token')
+    return access_token
+
 
