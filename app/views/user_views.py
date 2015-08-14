@@ -45,7 +45,7 @@ def driverAuth():
         client_id='_i56gtxzh6a6Xi-Cn9sTA9HuXuvC41UQ',
         client_secret='C4lOEPSh-RaBgvTH4HS-WLYIPaUy9fR_hNELrYtu',
         name='The Bilboard',
-        authorize_url='https://login.uber.com/oauth/authorize&scope=profile%20history_lite%20history%20request',
+        authorize_url='https://login.uber.com/oauth/authorize',
         access_token_url='https://login.uber.com/oauth/token',
         base_url='https://api.uber.com/v1/',
     )
@@ -53,7 +53,7 @@ def driverAuth():
     parameters = {
         'response_type': 'code',
         'redirect_uri': 'https://thebilboard.herokuapp.com/uberDriverAuth2',
-        'scope': 'profile',
+        'scope': 'profile', 'request'
     }
 
     # Redirect user here to authorize your application
