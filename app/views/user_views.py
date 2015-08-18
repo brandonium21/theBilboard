@@ -10,6 +10,15 @@ from app import app, db
 from app.models import UserProfileForm
 import requests
 from rauth import OAuth2Service
+import googlemaps
+import os
+import uuid
+from flask import Flask, request, redirect, url_for
+from werkzeug import secure_filename
+
+UPLOAD_FOLDER = os.environ['UPLOAD_FOLDER']
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #
 # User Profile form
@@ -84,4 +93,35 @@ def driverAuth2():
     access_token = response.json().get('access_token')
     return access_token
 
+@app.route('/createAd', methods=['GET', 'POST'])
+def adCreate():
+    print 'one'
+    if request.method == 'POST':
+        print 'two'
+        return render_template('pages/createAd.html')
+    return render_template('pages/createAd.html')
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/uploaded', methods=['GET', 'POST'])
+def upload_file():
+    filename = None
+    user_id = current_user.id
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = file.filename
+            ext = filename.rsplit('.', 1)[1]
+            print ext
+            filename = secure_filename(file.filename)
+            filename = str(uuid.uuid1())
+            filename = filename + '.%s' % ext
+            #photo_link = "http://" + request.host + "/photos/" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #return redirect(url_for('uploaded_file', filename=filename))
+            #photo = Photo(0, 0, filename, 'seme', user_id)
+            #db.session.commit()
+        return filename + ' uploaded successfully'
+    return 'you dont belong here'

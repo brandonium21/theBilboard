@@ -48,6 +48,7 @@ CSRF_ENABLED = True
 
 # Flask-User settings
 USER_APP_NAME = APP_NAME
+WTF_CSRF_ENABLED=False
 USER_ENABLE_CHANGE_PASSWORD    = True      # Allow users to change their password
 USER_ENABLE_CHANGE_USERNAME    = False     # Allow users to change their username
 USER_ENABLE_CONFIRM_EMAIL      = True      # Force users to confirm their email

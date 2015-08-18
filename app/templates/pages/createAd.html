@@ -1,0 +1,558 @@
+{% extends "common/page_base.html" %} {# common/page_base.html extends layout.html #} {% block main %} {% if location %}
+<meta id="LatLocation" data-name="{{ location[0] }}">
+<meta id="LngLocation" data-name="{{ location[1] }}"> {% endif %}
+<style type="text/css">
+.wrapper {
+    margin: auto;
+}
+
+#holder {
+    border: 10px dashed #ccc;
+    width: 600px;
+    min-height: 300px;
+    margin: 20px auto;
+}
+
+#holder.hover {
+    border: 10px dashed #0c0;
+}
+
+#holder img {
+    display: block;
+    margin: 10px auto;
+}
+
+#holder p {
+    margin: 10px;
+    font-size: 14px;
+}
+
+progress {
+    width: 100%;
+}
+
+progress:after {
+    content: '%';
+}
+
+.fail {
+    background: #c00;
+    padding: 2px;
+    color: #fff;
+}
+
+.hidden {
+    display: none !important;
+}
+
+html,
+body {
+    width: 100%;
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+}
+
+#adInfoForm {
+    width: 100%;
+    margin: auto;
+}
+
+#titleInfo {
+    width: 40%;
+    margin: auto;
+}
+
+.media-drop {
+    border: 13px dotted rgba(0, 0, 0, 0.3);
+    border-color: #428bca;
+    background: white;
+    width: 100%;
+    height: 100%;
+}
+
+#apearBody {
+    margin-top: 25px;
+}
+
+.dropzone {
+    width: 80%;
+    margin: auto;
+}
+
+.dropzone .dz-message {
+    font-size: 2em;
+    vertical-align: middle;
+    color: #555555;
+}
+
+#contactInfo {
+    width: 60%;
+    margin: auto;
+}
+
+.dropzone .dz-preview .dz-image {}
+
+.panel-heading {
+    background-color: #999999;
+}
+
+#map {
+    height: 100%;
+}
+
+.panel {
+    border-radius: 0;
+    border: 0;
+    box-shadow: 0 0 5px #777;
+}
+
+#campagin {
+    margin-top: 30px;
+}
+
+.jumbotron {
+    background-color: #fff;
+    margin-top: 100px;
+    border-color: #D9534F;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#locForm {
+    margin: 0;
+    width: 100%;
+}
+
+
+/* navbar */
+
+.navbar-default {
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+
+/* title */
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #5E5E5E;
+}
+
+
+/* link */
+
+.navbar-default .navbar-nav > li > a {
+    color: #777;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #333;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #E7E7E7;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+
+
+/* caret */
+
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+
+
+/* mobile version */
+
+.navbar-default .navbar-toggle {
+    border-color: #DDD;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #DDD;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+    }
+}
+
+#mapWrapper {
+    height: 380px;
+}
+</style>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">The Bilboard</a>
+    </div>
+</nav>
+<div class='container'>
+    <div class='jumbotron'>
+        <h4>
+			Advertise with Bilboard!
+		</h4>
+        <p>
+            With the number of people on their phones about to exceed desktop usage the need for location based advetizing(LBA) grows. The bilboard gives merchants the power to target mobile users effectivly.
+        </p>
+    </div>
+</div>
+<div class='wrapper'>
+    <div id='campagin' class='container'>
+        <p><strong>Step 1</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Campaign</strong></div>
+            <div class="panel-body">
+                <center>
+                    <h2 class='lead'>Main Information</h2>
+                </center>
+                <div id='titleInfo'>
+                    <div class="form-group has-feedback">
+                        <label class="control-label sr-only" for="inputSuccess5">Hidden label</label>
+                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Title" aria-describedby="inputSuccess5Status">
+                        <span id="inputSuccess5Status" class="sr-only">(success)</span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label sr-only" for="inputSuccess5">Hidden label</label>
+                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Url to website" aria-describedby="inputSuccess5Status">
+                        <span id="inputSuccess5Status" class="sr-only">(success)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='appearance' class='container'>
+        <p><strong>Step 2</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Appearance</strong></div>
+            <div id='apearBody' class="panel-body">
+                <div class='row'>
+                    <div class="col-md-8">
+                        <article>
+                            <div id="holder">
+                            </div>
+                            <p id="upload" class="hidden">
+                                <label>Drag &amp; drop not supported, but you can still upload via this input field:
+                                    <br>
+                                    <input type="file">
+                                </label>
+                            </p>
+                            <p id="filereader">File API &amp; FileReader API not supported</p>
+                            <p id="formdata">XHR2's FormData is not supported</p>
+                            <p id="progress">XHR2's upload progress isn't supported</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            Please upload your ad here. Your ad must be a 4:3 aspect ratio for the best ascetic pleasing view. Example:
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='location' class='container'>
+        <p><strong>Step 3</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Location</strong></div>
+            <div class="panel-body">
+                <div id="locForm" class="container">
+                    <div class="row">
+                        <div class='col-md-5'>
+                            <div class="form-group">
+                                <label class="form-label">Address</label>
+                                <a type="button" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The location you choose will be the one your audience will go to.">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                </a>
+                                <input id="mapAddress" name="address-line" type="text" placeholder="Street address" class="form-control">
+                                <p class="help-block">Street address of your Establishment/ Lair of doom</p>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary pull-right" value="Geocode" id="locSubmit">Submit</button>
+                            </div>
+                        </div>
+                        <div id="mapWrapper" class='col-md-7'>
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='about' class='container'>
+        <p><strong>Step 4</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Info for Audience</strong></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div id="adInfoForm">
+                            <form>
+                                <div class="form-group">
+                                    <label for="headline">Headline</label>
+                                    <a type="button" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Tell people a bit more about your URL. Make sure to clearly explain what you're promoting.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <input type="text" class="form-control" id="headline" placeholder="Headline">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    <a type="button" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Tell people a bit more about your URL. Make sure to clearly explain what you're promoting.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <textarea class="form-control" id="headline" placeholder="Description" class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-7"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='pay' class='container'>
+        <p><strong>Step 5</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>How much do you want to spend</strong></div>
+            <div class="panel-body">
+                Panel content
+            </div>
+        </div>
+    </div>
+    <div id='contact' class='container'>
+        <p><strong>Step 6</strong></p>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Contact info</strong></div>
+            <div class="panel-body">
+                <div id='contactInfo' class="container">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Contact email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="companyName" placeholder="Company/Organization name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="headline" placeholder="Headline">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="headline" rows="3" placeholder="Description">
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./static/html5boilerplate/js/dropzone.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
+<!--
+	<script src="http://malsup.github.com/jquery.form.js"></script>
+<script>
+// wait for the DOM to be loaded 
+$(document).ready(function() {
+    // bind 'myForm' and provide a simple callback function 
+    $('#locationForm').ajaxForm(function() {
+        alert("Thank you for your comment!");
+    });
+});
+</script>
+-->
+<script>
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: -33.8688,
+            lng: 151.2195
+        },
+        zoom: 13
+    });
+    var input = /** @type {!HTMLInputElement} */ (
+        document.getElementById('mapAddress'));
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17); // Why 17? Because it looks good.
+        }
+        marker.setIcon( /** @type {google.maps.Icon} */ ({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+
+        var address = '';
+        if (place.address_components) {
+            address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''), (place.address_components[1] && place.address_components[1].short_name || ''), (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+        }
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+    });
+
+}
+</script>
+<script>
+var holder = document.getElementById('holder'),
+    tests = {
+        filereader: typeof FileReader != 'undefined',
+        dnd: 'draggable' in document.createElement('span'),
+        formdata: !!window.FormData,
+        progress: "upload" in new XMLHttpRequest
+    },
+    support = {
+        filereader: document.getElementById('filereader'),
+        formdata: document.getElementById('formdata'),
+        progress: document.getElementById('progress')
+    },
+    acceptedTypes = {
+        'image/png': true,
+        'image/jpeg': true,
+        'image/gif': true
+    },
+    progress = document.getElementById('uploadprogress'),
+    fileupload = document.getElementById('upload');
+"filereader formdata progress".split(' ').forEach(function(api) {
+    if (tests[api] === false) {
+        support[api].className = 'fail';
+    } else {
+        // FFS. I could have done el.hidden = true, but IE doesn't support
+        // hidden, so I tried to create a polyfill that would extend the
+        // Element.prototype, but then IE10 doesn't even give me access
+        // to the Element object. Brilliant.
+        support[api].className = 'hidden';
+    }
+});
+
+function previewfile(file) {
+    if (tests.filereader === true && acceptedTypes[file.type] === true) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var image = new Image();
+            image.src = event.target.result;
+            image.width = 500; // a fake resize
+            holder.appendChild(image);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size / 1024 | 0) + 'K' : '');
+        console.log(file);
+    }
+}
+
+function readfiles(files) {
+    debugger;
+    var formData = tests.formdata ? new FormData() : null;
+    for (var i = 0; i < files.length; i++) {
+        if (tests.formdata) formData.append('file', files[i]);
+        previewfile(files[i]);
+    }
+    // now post a new XHR request
+    if (tests.formdata) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/uploaded');
+        xhr.onload = function() {
+
+        };
+        if (tests.progress) {
+            xhr.upload.onprogress = function(event) {
+                if (event.lengthComputable) {
+                    var complete = (event.loaded / event.total * 100 | 0);
+                }
+            }
+        }
+        xhr.send(formData);
+    }
+}
+if (tests.dnd) {
+    holder.ondragover = function() {
+        this.className = 'hover';
+        return false;
+    };
+    holder.ondragend = function() {
+        this.className = '';
+        return false;
+    };
+    holder.ondrop = function(e) {
+        this.className = '';
+        e.preventDefault();
+        readfiles(e.dataTransfer.files);
+    }
+} else {
+    fileupload.className = 'hidden';
+    fileupload.querySelector('input').onchange = function() {
+        readfiles(this.files);
+    };
+}
+</script>
+{% endblock %}

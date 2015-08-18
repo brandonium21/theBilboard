@@ -1,27 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>MyApp</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Optional apple-touch-icon
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>The Bilboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optional apple-touch-icon
         <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-        <!-- Place favicon.ico in the root directory -->
+    <!-- Place favicon.ico in the root directory -->
+    <!-- HTML5 boilerplate CSS -->
+    <link rel="stylesheet" href="/static/html5boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="/static/html5boilerplate/css/main.css">
+    <link rel="stylesheet" href="/static/html5boilerplate/css/dropzone.css">
+    <script src="/static/html5boilerplate/js/modernizr-2.8.3.min.js"></script>
+    <!-- Application specific CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/app/app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/js/r.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/jquery.html5uploader-1.1.js"></script>
+    {% if location %}
+    <meta id="locationLat" data-name="{{ location[0] }}">
+    <meta id="locationLng" data-name="{{ location[1] }}"> 
+    {% endif %}
+</head>
 
-        <!-- HTML5 boilerplate CSS -->
-        <link rel="stylesheet" href="/static/html5boilerplate/css/normalize.css">
-        <link rel="stylesheet" href="/static/html5boilerplate/css/main.css">
-        <script src="/static/html5boilerplate/js/modernizr-2.8.3.min.js"></script>
-
-        <!-- Application specific CSS-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/app/app.css">
-    </head>
-    <body>
-        <!-- Application specific HTML -->
+<body>
+    <!-- Application specific HTML 
         <div id="header-div" class="clearfix with-margins">
             <div class="pull-left"><a href="{{ url_for('home_page') }}"><span class="header-title">MyApp</span></a></div>
             <div class="pull-right">
@@ -40,40 +48,28 @@
             &nbsp; | &nbsp; <a href="{{ url_for('admin_page') }}">Admin</a>
         </div>
         <hr class="no-margins"/>
-
-        <div id="main-div" class="with-margins">
-        {# One-time system messages called Flash messages #}
-        {% block flash_messages %}
-            {%- with messages = get_flashed_messages(with_categories=true) -%}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        {% if category=='error' %}
-                            {% set category='danger' %}
-                        {% endif %}
-                        <div class="alert alert-{{category}}">{{ message|safe }}</div>
-                    {% endfor %}
-                {% endif %}
-            {%- endwith %}
-        {% endblock %}
-
-        {% block main %}{% endblock %}
-        </div>
-
-        <br/>
-        <hr class="no-margins"/>
-        <div id="footer-div" class="clearfix with-margins">
-            <div class="pull-left">MyApp v1.0</div>
-            <div class="pull-right">&copy; 2014 MyCorp</div>
-        </div>
-
-        <!-- Application specific JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-        <!-- HTML5 boilerplate JS -->
-        <script src="/static/html5boilerplate/js/main.js"></script>
-
-        <!-- Optional Google Analytics: change UA-XXXXX-X to be your site's ID.
+-->
+    <div id="main-div" class="with-margins">
+        {# One-time system messages called Flash messages #} {% block flash_messages %} {%- with messages = get_flashed_messages(with_categories=true) -%} {% if messages %} {% for category, message in messages %} {% if category=='error' %} {% set category='danger' %} {% endif %}
+        <div class="alert alert-{{category}}">{{ message|safe }}</div>
+        {% endfor %} {% endif %} {%- endwith %} {% endblock %} {% block main %}{% endblock %}
+    </div>
+    <br/>
+    <hr class="no-margins" />
+    <div id="footer-div" class="clearfix with-margins">
+        <div class="pull-left">The Bilboard v1.0</div>
+        <div class="pull-right">&copy; 2015 2Dots Electronics</div>
+    </div>
+    <!-- Application specific JS -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- HTML5 boilerplate JS -->
+    <script src="/static/html5boilerplate/js/main.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('[data-toggle="popover"]').popover()
+    })
+    </script>
+    <!-- Optional Google Analytics: change UA-XXXXX-X to be your site's ID.
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
@@ -83,5 +79,6 @@
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
         -->
-    </body>
+</body>
+
 </html>
